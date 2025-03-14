@@ -1,0 +1,25 @@
+// Sliding Window Technique
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int start = 0;                            // Start the pointer of the window
+        int maxLength = 0;                        // Varaible to keep track of the longest substring
+
+                                                  // Iterate through the string using the end pointer
+        for(int end = 0; end< s.length(); end++){
+                                                 // if character at 'end' is already in the set , shrink the window
+            while(set.contains(s.charAt(end))){
+                set.remove(s.charAt(start));    // Remove the character at 'start'
+                start++;                        // Move the 'start' pointer to the right
+            }
+                                               // Add the new chararcter to the set 
+            set.add(s.charAt(end));
+                                               // Update the maximum length
+            maxLength = Math.max(maxLength , end - start + 1);
+        }
+        return maxLength;                      // Return the longest length found
+
+        
+        
+    } 
+}
