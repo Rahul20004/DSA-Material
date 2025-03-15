@@ -1,0 +1,177 @@
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int start = 0, maxLength = 0, zeroCount = 0;
+
+        for(int end = 0; end< nums.length; end++){
+            if(nums[end] == 0){
+                zeroCount++; // flip a zero
+            }
+            while(zeroCount > k){ // if too many zeros flipped , shrink the window
+                if(nums[start] == 0){ 
+                    zeroCount--;
+                }
+                start ++; // move left pointer when shrinking start
+                
+            }
+            maxLength = Math.max(maxLength, end - start + 1);// always update       
+
+        }
+        return maxLength;
+        
+
+        
+    }
+}
+
+
+
+
+
+Explaination:
+
+Algorithm (Optimized - Sliding Window Approach)
+Initialize Variables:
+
+start = 0 (left pointer of the window).
+maxLength = 0 (to store the longest sequence of 1s).
+zeroCount = 0 (to track the number of flipped 0s).
+Expand the Window (end pointer):
+
+If nums[end] is 0, increment zeroCount.
+If zeroCount exceeds k, shrink the window from the left (start) until zeroCount <= k.
+Update the Maximum Length:
+
+At each step, update maxLength as end - start + 1.
+Return maxLength after the loop completes.
+
+Optimized Java Code (Sliding Window)
+java
+Copy
+Edit
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int start = 0, maxLength = 0, zeroCount = 0;
+
+        for (int end = 0; end < nums.length; end++) {
+            if (nums[end] == 0) {
+                zeroCount++;  // Flip a zero
+            }
+
+            while (zeroCount > k) {  // If too many zeros flipped, shrink the window
+                if (nums[start] == 0) {
+                    zeroCount--;  // Reduce flipped count
+                }
+                start++;  // Move left pointer
+            }
+
+            maxLength = Math.max(maxLength, end - start + 1);
+        }
+
+        return maxLength;
+    }
+}
+Code Explanation in Hindi
+समस्या का संक्षेप में वर्णन
+हमें एक बाइनरी ऐरे (0 और 1 से बना) दिया गया है, और हम अधिकतम k बार 0 को 1 में बदल सकते हैं।
+हमें सबसे लंबी 1 की लगातार श्रृंखला (subarray) का आकार लौटाना है।
+
+स्टेप-बाय-स्टेप कोड व्याख्या
+तीन वेरिएबल इनिशियलाइज़ करें:
+
+start = 0: स्लाइडिंग विंडो का बायाँ छोर।
+maxLength = 0: सबसे लंबी श्रृंखला को ट्रैक करने के लिए।
+zeroCount = 0: फ्लिप किए गए 0 की गिनती करने के लिए।
+एरे को end से इटरेट करें:
+
+अगर nums[end] == 0, तो zeroCount++ करें (क्योंकि हमने एक 0 को फ्लिप किया)।
+अगर zeroCount > k हो जाता है, तो विंडो को शिफ्ट करें (बाएँ start को बढ़ाएँ)।
+जब zeroCount <= k हो जाता है, तब maxLength अपडेट करें:
+
+maxLength = Math.max(maxLength, end - start + 1)
+अंत में maxLength को रिटर्न करें।
+
+Dry Run (Example 1)
+Input:
+java
+Copy
+Edit
+nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+Step-by-Step Table:
+Step	start	end	nums[end]	zeroCount	Window (start to end)	Window Size	maxLength
+1	0	0	1	0	[1]	1	1
+2	0	1	1	0	[1,1]	2	2
+3	0	2	1	0	[1,1,1]	3	3
+4	0	3	0	1	[1,1,1,0]	4	4
+5	0	4	0	2	[1,1,1,0,0]	5	5
+6	0	5	0	3	[1,1,1,0,0,0]	Invalid	5
+7	1	5	0	2	[1,1,0,0,0] (Shrinking)	5	5
+8	2	5	0	2	[1,0,0,0]	4	5
+9	3	6	1	2	[0,0,0,1]	4	5
+10	3	7	1	2	[0,0,0,1,1]	5	5
+11	3	8	1	2	[0,0,0,1,1,1]	6	6
+12	3	9	1	2	[0,0,0,1,1,1,1]	7	6
+13	3	10	0	3	[0,0,0,1,1,1,1,0]	Invalid	6
+Final Output:
+ini
+Copy
+Edit
+maxLength = 6
+Complexity Analysis
+Time Complexity: O(n) (Each element is processed at most twice).
+Space Complexity: O(1) (No extra space is used).
+Summary
+✅ Sliding Window का उपयोग करके हमने O(n) में समाधान निकाला।
+✅ अधिकतम k 0 को 1 में बदलने के बाद सबसे लंबी 1 की श्रृंखला का आकार पाया।
+✅ Company Interviews के लिए यह Code Optimize है! 🚀
+
+
+
+
+
+
+
+You said:
+question ek bar aur samjao
+ChatGPT said:
+समस्या को अच्छे से समझते हैं 🧐
+हमें एक बाइनरी ऐरे (nums[]) दिया गया है, जिसमें सिर्फ 0 और 1 होते हैं।
+हमें k बार अधिकतम 0 को 1 में बदलने की अनुमति दी गई है।
+अब हमें यह बताना है कि सबसे लंबी "1" की लगातार श्रृंखला (subarray) कितनी हो सकती है।
+
+Example 1:
+Input:
+java
+Copy
+Edit
+nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+Explanation:
+हमें अधिकतम k = 2 बार 0 को 1 में बदलने की अनुमति है।
+अगर हम आखिरी वाले दो 0 (इंडेक्स 3 और 4) को 1 में बदल दें, तो ऐरे ऐसा बनेगा:
+
+ini
+Copy
+Edit
+nums = [1,1,1,1,1,0,1,1,1,1,1]
+अब इस ऐरे में सबसे लंबा 1 की लगातार श्रृंखला = 6 है।
+
+Output: 6 ✅
+Example 2:
+Input:
+java
+Copy
+Edit
+nums = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], k = 3
+Explanation:
+अगर हम k = 3 बार तीन 0 को 1 में बदल दें, तो सबसे अच्छी स्थिति में ऐरे ऐसा बनेगा:
+
+ini
+Copy
+Edit
+nums = [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]
+अब इसमें सबसे लंबी 1 की लगातार श्रृंखला = 10 है।
+
+Output: 10 ✅
+समस्या का सारांश
+✅ हमें 0 को 1 में बदलने के लिए k बार अनुमति दी गई है।
+✅ अब हमें सबसे लंबा 1 की लगातार श्रृंखला (subarray) का आकार निकालना है।
+✅ इसे हम Sliding Window Approach से O(n) समय में हल कर सकते हैं। 🚀
