@@ -1,0 +1,228 @@
+//Brute approach (Sliding Window)
+class Solution {
+    public static int totalElements(Integer[] arr) {
+        int maxLength = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            HashSet<Integer> set = new HashSet<>(); 
+            for (int j = i; j < arr.length; j++) {
+                set.add(arr[j]);           // subarray में element add करो
+                if (set.size() > 2) break; // अगर 2 से ज्यादा distinct elements हो गए तो break
+
+                maxLength = Math.max(maxLength, j - i + 1); // max length update करो
+            }
+        }
+
+        return maxLength;
+    }
+
+  
+}
+
+
+
+
+// Explain
+// To Summarize:
+// Angle Brackets < > specify the type of the elements.
+// Curly Braces { } are used for initializing elements inside a collection.
+
+ For Practice
+
+// class Solution{
+//     public static int totalElements(Integer[] arr){
+//         int maxLength = 0;
+//         for(int i= 0; i<arr.length; i++){
+//             HashSet<Integer> set = new HashSet<>();
+//             for(int j= i; j<arr.length; j++){
+//                 set.add(arr[j]);
+//                 if(set.size() >2) break;
+//                 maxLength = Math.max(maxLength, j-i+1);
+//             }
+//         }
+//         return maxLength;
+//     }
+// }
+
+
+
+
+
+
+Explain:
+Code Explanation (लाइन-बाय-लाइन हिंदी में)
+1. Import और Class Definition
+java
+Copy
+Edit
+import java.util.HashSet;
+हम HashSet इम्पोर्ट कर रहे हैं क्योंकि इससे हम distinct (अलग-अलग) elements को store कर सकते हैं।
+java
+Copy
+Edit
+class Solution {
+Solution नाम की एक class बनाई गई है।
+2. totalElements() Method
+java
+Copy
+Edit
+public static int totalElements(Integer[] arr) {
+totalElements() नाम का एक static method है जो Integer type की array को input लेता है और int value return करता है।
+3. Variables Initialization
+java
+Copy
+Edit
+int maxLength = 0;
+maxLength एक variable है जो सबसे बड़े valid subarray की length को store करेगा।
+4. Outer Loop - Subarray के शुरुआत का पॉइंट सेट करना
+java
+Copy
+Edit
+for (int i = 0; i < arr.length; i++) {
+i से loop शुरू कर रहे हैं, यह outer loop हर index से subarray बनाने की कोशिश करेगा।
+5. Inner Loop - Subarray बनाना और चेक करना
+java
+Copy
+Edit
+HashSet<Integer> set = new HashSet<>();
+एक HashSet बनाया ताकि हम unique elements को store कर सकें।
+java
+Copy
+Edit
+for (int j = i; j < arr.length; j++) {
+j से एक नया subarray बनाने के लिए inner loop चलाया।
+6. Element Add करना और Checking
+java
+Copy
+Edit
+set.add(arr[j]); // subarray में element add करो
+set में arr[j] को insert किया, ताकि हम यह track कर सकें कि subarray में कितने distinct elements हैं।
+java
+Copy
+Edit
+if (set.size() > 2) break; // अगर 2 से ज्यादा distinct elements हो गए तो break
+अगर set की size 2 से ज्यादा हो जाए, तो हम loop को break कर देते हैं क्योंकि यह subarray अब valid नहीं है।
+7. maxLength को Update करना
+java
+Copy
+Edit
+maxLength = Math.max(maxLength, j - i + 1); // max length update करो
+j - i + 1 से subarray की current length निकाली और maxLength को update किया।
+8. Return Statement
+java
+Copy
+Edit
+return maxLength;
+पूरी array को चेक करने के बाद, हमें सबसे बड़ा valid subarray मिला होगा। उसे return कर दिया।
+9. main() Method - Test Cases Run करना
+java
+Copy
+Edit
+public static void main(String[] args) {
+main() method में test cases को check किया गया।
+java
+Copy
+Edit
+Integer arr1[] = {2, 1, 2};
+System.out.println(totalElements(arr1)); // Output: 3
+{2, 1, 2} subarray पूरा valid है, इसलिए output 3 आएगा।
+java
+Copy
+Edit
+Integer arr2[] = {3, 1, 2, 2, 2, 2};
+System.out.println(totalElements(arr2)); // Output: 5
+{1, 2, 2, 2, 2} यह सबसे बड़ा valid subarray है, जिसका size 5 है।
+Dry Run (Step by Step Execution)
+Test Case 1: arr = {2, 1, 2}
+i	j	Subarray	Unique Elements	maxLength
+0	0	{2}	{2}	1
+0	1	{2, 1}	{2, 1}	2
+0	2	{2, 1, 2}	{2, 1}	3
+1	1	{1}	{1}	3
+1	2	{1, 2}	{1, 2}	3
+2	2	{2}	{2}	3
+✅ Final Output = 3
+
+Test Case 2: arr = {3, 1, 2, 2, 2, 2}
+i	j	Subarray	Unique Elements	maxLength
+0	0	{3}	{3}	1
+0	1	{3, 1}	{3, 1}	2
+0	2	{3, 1, 2}	{3, 1, 2}	- (break)
+1	1	{1}	{1}	2
+1	2	{1, 2}	{1, 2}	2
+1	3	{1, 2, 2}	{1, 2}	3
+1	4	{1, 2, 2, 2}	{1, 2}	4
+1	5	{1, 2, 2, 2, 2}	{1, 2}	5
+2	2	{2}	{2}	5
+2	3	{2, 2}	{2}	5
+2	4	{2, 2, 2}	{2}	5
+2	5	{2, 2, 2, 2}	{2}	5
+✅ Final Output = 5
+
+समाप्ति 🎯
+Time Complexity: O(n^2) (दो nested loops)
+Space Complexity: O(2) = O(1) (क्योंकि set में सिर्फ 2 elements होंगे)
+इस approach को Sliding Window से और optimize किया जा सकता है 🚀.
+
+
+
+
+
+
+
+
+You said:
+why we use HashSet<Integer> 
+short explain
+ChatGPT said:
+हम HashSet<Integer> का उपयोग इसलिए करते हैं क्योंकि:
+
+Distinct (अलग-अलग) Elements को Store करने के लिए
+
+HashSet automatically duplicate values को allow नहीं करता। इससे हम आसानी से check कर सकते हैं कि subarray में कितने unique elements हैं।
+Fast Lookup (O(1) Average Case)
+
+set.size() से हम जल्दी से check कर सकते हैं कि subarray में कितने distinct elements हैं, जिससे हमारा code efficient बनता है।
+Condition Checking for Breaking the Loop
+
+जब set.size() > 2 हो जाता है, तो हमें पता चल जाता है कि subarray अब valid नहीं है, और हम तुरंत loop को break कर सकते हैं।
+✅ Conclusion: HashSet<Integer> हमें fast और easy तरीके से unique elements track करने में मदद करता है! 🚀
+
+
+
+
+
+
+
+You said:
+what type of brackets come in hashset
+ChatGPT said:
+In Java, when you declare or initialize a HashSet, you use curly braces { } to define the contents of the set, and angle brackets < > to specify the type of the elements inside the set. Here's the breakdown:
+
+Angle Brackets < >:
+
+These are used to specify the type of elements the HashSet will store. In your case, HashSet<Integer> means the set will store Integer values.
+Example:
+
+java
+Copy
+Edit
+HashSet<Integer> set = new HashSet<>();
+Curly Braces { }:
+
+These are used to define the initial elements of a HashSet when you initialize it. However, you cannot directly initialize a HashSet with values inside curly braces unless you are using an initializer block or using something like Arrays.asList().
+Example of initializing a HashSet with values:
+
+java
+Copy
+Edit
+HashSet<Integer> set = new HashSet<>(Arrays.asList(1, 2, 3, 4));
+To Summarize:
+Angle Brackets < > specify the type of the elements.
+Curly Braces { } are used for initializing elements inside a collection.
+
+
+
+
+
+
