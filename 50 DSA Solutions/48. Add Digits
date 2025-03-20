@@ -1,0 +1,22 @@
+
+class Solution {
+    public int addDigits(int num) {
+        // Step 1: Check if Single digit
+        while(num >= 10){
+            int sum = 0;
+            while(num > 0){
+                sum += num % 10; // Extract the last digit
+                num /= 10;
+            }
+            // Step 3: Update num to the sum of digits
+            num = sum;
+        }
+        // Step 4: Return final result 
+        return num;
+        
+
+        
+        
+        
+    }
+}
