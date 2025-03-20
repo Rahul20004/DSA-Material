@@ -1,0 +1,22 @@
+class Solution {
+    public int lengthOfLastWord(String s) {
+        // Step 1: Trimspaces from both sides
+        s = s.trim();
+        // Step 2: Split String into words using spaces
+        String[] words = s.split("\\s+");
+
+        //Step 3: Get the last word's length
+        return words[words.length -1].length();
+    }
+
+}
+
+Explaination:
+
+🚀 Algorithm:
+🛠️ Step 1: Trim Trailing Spaces
+Remove extra spaces at the end using trim() to handle cases like " Hello World ".
+🛠️ Step 2: Split the String into Words
+Use split("\\s+") to split words based on spaces.
+🛠️ Step 3: Get the Last Word's Length
+Take the last word from the split array and return its length.
