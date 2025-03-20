@@ -1,0 +1,68 @@
+class Solution {
+    public boolean isHappy(int n) {
+       // Step 1: Create a HashSet to track numbers
+       HashSet<Integer> seen = new HashSet<>();
+       // Step 2: Loop until n becomes 1 or enters a cycle
+       while(n != 1){
+        n = sumOfSquares(n);
+        // Check for cycle
+        if(seen.contains(n)){
+            return false;
+        }
+        // Add current to the set
+        seen.add(n);
+       }
+       return true; // if n == 1
+            
+    }
+    private int sumOfSquares(int n){
+        int sum = 0;
+        while(n > 0 ){ // 19 -> 1
+            int digit = n % 10; // get the  last digit
+            sum += digit* digit; // Add Square of digit to sum
+            n /= 10; // Remove last digit
+        }
+        return sum;
+    }
+}
+
+
+Explain: 
+📚 Algorithm:
+🛠️ Step 1: Define Helper to Calculate Sum of Squares
+Extract digits using n % 10.
+Sum the squares of the digits.
+Repeat until n becomes 0.
+🛠️ Step 2: Use HashSet to Detect Cycle
+Initialize a HashSet to store seen numbers.
+While n is not 1:
+Calculate sum of squares → n = sumOfSquares(n).
+If n is already in the set, a cycle is detected → Return false.
+Add n to the set.
+If n becomes 1, return true.
+
+EXAMPLE 1:
+
+Input: n = 19
+Step 1: 1² + 9² = 1 + 81 = 82
+Step 2: 8² + 2² = 64 + 4 = 68
+Step 3: 6² + 8² = 36 + 64 = 100
+Step 4: 1² + 0² + 0² = 1
+Output: true
+
+EXAMPLE 2:
+Input: n = 2
+Step 1: 2² = 4
+Step 2: 4² = 16
+Step 3: 1² + 6² = 1 + 36 = 37
+Step 4: 3² + 7² = 9 + 49 = 58
+Step 5: 5² + 8² = 25 + 64 = 89
+Step 6: 8² + 9² = 64 + 81 = 145
+Step 7: 1² + 4² + 5² = 1 + 16 + 25 = 42
+Step 8: 4² + 2² = 16 + 4 = 20
+Step 9: 2² + 0² = 4 → Loop Detected!
+Output: false
+
+
+
+
