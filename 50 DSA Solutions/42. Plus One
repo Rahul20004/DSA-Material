@@ -1,0 +1,68 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int n = digits.length;
+        // Traverse from last digit to first
+        for(int i = n-1; i>=0; i--){
+            if(digits[i] < 9){
+                digits[i]++; // Increment if less than 9
+                return digits; // Return the result if no carry
+            }
+            digits[i] = 0; //Set current digit to 0 if it was 9
+        }
+        // If all digits are 9, , add 1 at the beginning
+        int[] result = new int[n +1];
+        result[0] = 1; // Add leading 1
+        return result;
+        
+    }
+}
+
+Explaination:
+📢 Dry Run:
+🧩 Example 1:
+css
+Copy
+Edit
+Input: digits = [1, 2, 3]
+🔎 Step-by-Step Execution:
+Start from the last digit (3):
+3 + 1 = 4 (no carry)
+Update digits[2] = 4
+✅ Output: [1, 2, 4]
+🧩 Example 2:
+css
+Copy
+Edit
+Input: digits = [4, 3, 2, 1]
+Start from the last digit (1):
+1 + 1 = 2
+Update digits[3] = 2
+✅ Output: [4, 3, 2, 2]
+🧩 Example 3:
+css
+Copy
+Edit
+Input: digits = [9]
+Start from the last digit (9):
+9 + 1 = 10 → Set digits[0] = 0 and carry over
+Since all digits were processed and carry remains:
+Create a new array [1, 0]
+✅ Output: [1, 0]
+🧩 Example 4:
+css
+Copy
+Edit
+Input: digits = [9, 9, 9]
+Start from the last digit:
+9 + 1 = 10 → Set digits[2] = 0, carry over
+9 + 1 = 10 → Set digits[1] = 0, carry over
+9 + 1 = 10 → Set digits[0] = 0, carry over
+Create a new array [1, 0, 0, 0]
+✅ Output: [1, 0, 0, 0]
+🔥 Complexity Analysis:
+⏱️ Time Complexity:
+O(n) → We iterate through the digits array from right to left.
+In the worst case (all 9s), we traverse all elements once.
+💾 Space Complexity:
+O(1) → Modifies the input array in place.
+In the case of all 9s, a new array of size n + 1 is created, resulting in O(n) space.
