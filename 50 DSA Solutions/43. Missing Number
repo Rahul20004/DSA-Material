@@ -1,0 +1,48 @@
+class Solution {
+    public int missingNumber(int[] nums) {
+        int n = nums.length;
+        // Sum of first n numbers using formula 
+        int expectedSum = n* (n +1) / 2;
+        // Sum of all elements in tbe array 
+        int actualSum = 0;
+        for(int num : nums){
+            actualSum += num;
+        }
+        // Missing number = ExpectedSum - actualSum
+        return expectedSum - actualSum;
+
+        
+    }
+}
+
+
+Explaination:
+
+📝 Algorithm:
+1️⃣ Sum Formula Approach (Optimal Solution)
+This approach leverages the sum of natural numbers formula:
+
+Sum of first n number 
+
+​
+ 
+🔎 Steps:
+Calculate the expected sum:
+expectedSum
+
+​
+ 
+
+
+🧩 Example 2:
+css
+Copy
+Edit
+Input: nums = [0, 1]
+Sum Formula:
+n = 2
+expectedSum = 2 × (2 + 1) / 2 = 3
+actualSum = 0 + 1 = 1
+missingNumber = 3 - 1 = 2 ✅ Output: 2
+
+
