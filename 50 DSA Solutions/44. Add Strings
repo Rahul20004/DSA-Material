@@ -1,0 +1,59 @@
+// For Only Positive Integer
+class Solution {
+    public String addStrings(String num1, String num2) {
+        StringBuilder result = new StringBuilder(); // To store the  result
+        int i = num1.length()-1; // pointer for num1
+        int j = num2.length()-1; // pointer for num2
+        int carry  = 0;
+        // loop until all digits are processed or carry remains
+        while(i>=0 || j>=0 || carry > 0){
+            int digit1 = (i >= 0) ? num1.charAt(i) - '0' : 0; // Extract digit
+            int digit2 = (j>=0) ? num2.charAt(j) - '0' : 0; // Extract digit2
+            int sum = digit1 + digit2 + carry;
+            result.append(sum %10); // Append the last digit to result
+            carry = sum /= 10; // Update carry 
+            i--; // Move Right 
+            j--; // Move left        
+        
+        }
+        return result.reverse().toString();
+    }
+}
+
+Explaination:
+✅ Problem:
+👉 LeetCode 415 - Add Strings
+You are given two non-negative integers num1 and num2 represented as strings.
+Return the sum of these integers as a string.
+
+📚 Problem Constraints:
+You cannot convert the input strings to integers.
+You cannot use built-in libraries like BigInteger.
+📝 Algorithm:
+1️⃣ Initialize Variables:
+Create a StringBuilder to store the result.
+Use two pointers:
+i → points to the last character of num1.
+j → points to the last character of num2.
+Set carry = 0.
+2️⃣ Loop While Digits Remain:
+Loop while i >= 0 or j >= 0 or carry > 0:
+Extract the current digits from num1 and num2:
+digit1 = num1[i] - '0' if i >= 0, otherwise 0.
+digit2 = num2[j] - '0' if j >= 0, otherwise 0.
+Compute the sum:
+sum
+=
+digit1
++
+digit2
++
+carry
+sum=digit1+digit2+carry
+Append sum % 10 to the result.
+Update carry = sum / 10.
+Move i and j left by 1 (i--, j--).
+3️⃣ Handle Remaining Carry:
+If carry > 0 after the loop, append it to the result.
+4️⃣ Reverse and Return Result:
+Reverse the result and return it as a string.
