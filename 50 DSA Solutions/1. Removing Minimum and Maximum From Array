@@ -1,0 +1,81 @@
+class Solution {
+    public int minimumDeletions(int[] nums) {
+        int n = nums.length;
+
+        // Find min and max indices
+        int minIdx = 0, maxIdx = 0;
+        for(int i= 1; i<n ; i++){
+            if(nums[i] < nums[minIdx]){
+                minIdx = i;
+            }
+            if(nums[i] > nums[maxIdx]){
+                maxIdx = i;
+            }
+        }
+        // Case 1 : Remove from front 
+        int case1 = Math.max(minIdx , maxIdx) +1;
+        // Case 2: Remove from back
+        int case2 = Math.max(n- minIdx, n- maxIdx);
+        // Case 3: one from front, one from back
+        int case3 = Math.min(minIdx + 1 + (n- maxIdx), maxIdx + 1 + (n- minIdx));
+        // Return the minimum of all cases
+        return Math.min(case1 , Math.min(case2, case3));
+
+
+
+        
+        
+    }
+}
+
+
+
+
+
+Explain:
+✅ Approach:
+Find Minimum and Maximum:
+
+Identify the index of the minimum element (minIdx).
+Identify the index of the maximum element (maxIdx).
+Delete Scenarios: Consider 3 possible cases:
+
+Case 1: Remove both elements from the front.
+steps
+=
+max(minIdx, maxIdx)
++
+1
+steps=max(minIdx, maxIdx)+1
+Case 2: Remove both elements from the back.
+steps
+=
+max(n - minIdx, n - maxIdx)
+steps=max(n - minIdx, n - maxIdx)
+Case 3: One from the front and one from the back.
+steps
+=
+min(minIdx + 1 + (n - maxIdx), maxIdx + 1 + (n - minIdx))
+steps=min(minIdx + 1 + (n - maxIdx), maxIdx + 1 + (n - minIdx))
+Return the Minimum of These Cases:
+
+result
+=
+min(case1, case2, case3)
+result=min(case1, case2, case3)
+📚 Algorithm:
+Find min and max:
+
+minIdx = nums.index(min(nums))
+maxIdx = nums.index(max(nums))
+Check all 3 cases:
+
+Delete from front: max(minIdx, maxIdx) + 1
+Delete from back: max(n - minIdx, n - maxIdx)
+Mixed deletions:
+min(minIdx + 1 + (n - maxIdx), maxIdx + 1 + (n - minIdx))
+Return the minimum steps:
+
+return min(case1, case2, case3)
+return min(case1, case2, case3)
+
