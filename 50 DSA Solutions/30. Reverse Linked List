@@ -1,0 +1,23 @@
+class Solution {
+    public ListNode reverseList(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode newHead = reverseList(head.next);
+        head.next.next = head; // Make next node point to current node
+        head.next = null; // break original list
+        return newHead; // Return new head
+    }    
+    
+}
+
+Explaination:
+
+📊 Dry Run Summary:
+Step	head	newHead	Link Reversed	List Status
+1	1	5	2 → 1, break 1	5 → 4 → 3 → 2 → 1 → null
+2	2	5	3 → 2, break 2	5 → 4 → 3 → 2 → null
+3	3	5	4 → 3, break 3	5 → 4 → 3 → null
+4	4	5	5 → 4, break 4	5 → 4 → null
+5	5	5	No change (base case)	5 → null
+
