@@ -1,0 +1,20 @@
+// Flody's Cycle Detection Algorithm (Fast and Slow Pointer)
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head == null || head.next == null){
+            return false;
+        }
+        ListNode slow = head; // Slow pointer (1 Step)
+        ListNode fast = head; // Fast Pointer(2 Step)
+        while( fast != null && fast.next !=null){
+            slow = slow.next; // Move slow pointer by 1 step
+            fast = fast.next.next; // Move fast pointer by 2 step
+            if(slow == fast){
+                return true; // Cycle detected - 4 par meet karega
+            }
+        }
+        return false; // No Cycle found
+
+        
+    }
+}
