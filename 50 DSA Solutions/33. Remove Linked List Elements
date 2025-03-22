@@ -1,0 +1,44 @@
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode temp = new ListNode(-1);
+        temp.next = head;
+        ListNode prev = temp;
+        ListNode curr = head;
+        // Traverse the List 
+        while(curr != null){
+            if(curr.val == val){
+                prev.next =  curr.next; // Skip the node
+            } else{
+                prev = curr; //Move curr to next node
+            }
+            curr = curr.next; // Move curr to next node
+        }
+        return temp.next; //Return new head
+        
+    }
+}
+
+// Explaination:
+ Problem Statement:
+Task: Remove all nodes from the linked list where Node.val == val and return the updated head.
+Input:
+head → Head of the linked list.
+val → Integer value to be removed.
+Output: Return the new head after removing all occurrences of val.
+📝 Algorithm:
+Handle Edge Cases:
+
+If head is null, return null (empty list).
+Check and handle the case where the first nodes contain val.
+Use a Dummy Node:
+
+Create a temp (dummy) node to simplify operations.
+Set temp.next = head and use prev and curr pointers.
+Traverse the List:
+
+Use a pointer curr to traverse the list.
+If curr.val == val, skip the node by setting prev.next = curr.next.
+Otherwise, move prev to curr.
+Return Updated List:
+
+Return temp.next as the new head of the list.
