@@ -1,0 +1,48 @@
+Approach I: 
+
+ class Solution {
+     public boolean isAnagram(String s, String t) {
+      if(s.length() != t.length()) return false;
+       
+// S1: For s ()
+
+        char[] arr1 = s.toCharArray();  // convert the string to a character Array
+        char[] arr2 = t.toCharArray();
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        return Arrays.equals(arr1, arr2);
+        
+
+
+    }
+}
+
+Time Complexity : O(nlogn)
+Approach 2:
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        // अगर दोनों की length अलग है तो anagram नहीं हो सकते
+        if (s.length() != t.length()) return false;
+
+        // 26 characters के लिए frequency array
+        int[] freq = new int[26];
+
+        // दोनों strings की frequency count करना
+        for (int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i) - 'a']++;  // s के लिए increase
+            freq[t.charAt(i) - 'a']--;  // t के लिए decrease
+        }
+
+        // Check if all frequencies are zero
+        for (int count : freq) {
+            if (count != 0) {
+                return false; // Anagram नहीं है
+            }
+        }
+Time Complexity: O(n)
+        return true; // Anagram है
+    
+
+    }
+}
