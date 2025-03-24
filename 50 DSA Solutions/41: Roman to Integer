@@ -1,0 +1,133 @@
+// Approach 2: Using Switch Case
+class Solution {
+    public int romanToInt(String s) {
+         
+        int Value=0;      // Store the value of the current Roman numeral
+        int result =0;   // Stores the Final Result 
+        int prev = 0;    // 
+        char[] ch = s.toCharArray();   // String --> Character fro easy traversal
+        for(int i=ch.length-1; i>=0; i--){  // loop from Right to left
+            switch(ch[i]){
+                case 'I' : Value = 1;break;  // I =1
+                case 'V' : Value = 5;break;
+                case 'X' : Value = 10;break;
+                case 'L' : Value = 50;break; 
+                case 'C' : Value = 100;break; 
+                case 'D' : Value = 500;break; 
+                case 'M' : Value = 1000;break;
+
+            }   // Check for subtraction condition
+            if(Value < prev){
+                result -= Value;
+            }else{
+                result += Value;
+            }
+            prev = Value;
+        }
+        return result; // Return the final result
+    }
+}
+
+
+
+Exaplaination:
+
+
+🎯 Step 1: Initialize Variables
+
+int Value = 0;   // Holds the value of the current Roman numeral
+int result = 0;  // Final result after summing/subtracting the values
+int prev = 0;    // Holds the value of the previous numeral to compare
+🎯 Step 2: Convert String to Character Array
+
+char[] ch = s.toCharArray();
+Converts the input string s (like "MCMXCIV") into an array of characters.
+
+This makes it easier to iterate over the characters.
+
+🎯 Step 3: Loop Through the Array from Right to Left
+
+for (int i = ch.length - 1; i >= 0; i--) {
+We start from the last character and move to the first.
+
+Roman numerals are usually read from right to left for proper handling of subtraction conditions.
+
+For example:
+
+s = "MCMXCIV" → ch = ['M', 'C', 'M', 'X', 'C', 'I', 'V']
+
+Iteration happens as:
+V → I → C → X → M → C → M
+🎯 Step 4: Assign Value Using Switch Case
+
+switch (ch[i]) {
+    case 'I': Value = 1; break;
+    case 'V': Value = 5; break;
+    case 'X': Value = 10; break;
+    case 'L': Value = 50; break;
+    case 'C': Value = 100; break;
+    case 'D': Value = 500; break;
+    case 'M': Value = 1000; break;
+}
+The switch statement assigns the corresponding integer value for each Roman numeral.
+
+Examples:
+
+V → 5
+
+X → 10
+
+M → 1000
+
+🎯 Step 5: Check Subtraction Condition
+j
+if (Value < prev) {
+    result -= Value;
+} else {
+    result += Value;
+}
+Condition:
+
+If the current numeral is smaller than the previous numeral (like IV where I < V), we subtract it.
+
+Otherwise, we add the value to the result.
+
+Example:
+
+MCMXCIV
+
+IV → 5 - 1 = 4 (Subtract 1 because I < V)
+
+XC → 100 - 10 = 90 (Subtract 10 because X < C)
+
+🎯 Step 6: Update Previous Value
+
+prev = Value;
+Update prev with the current value for the next iteration.
+
+This ensures that the next character will be compared properly.
+
+🎯 Step 7: Return Final Result
+
+return result;
+Return the final calculated value after all iterations.
+
+⚡️ Dry Run with Example:
+
+s = "MCMXCIV"
+Iteration Steps:
+i	ch[i]	Value	prev	result	Action
+6	V	5	0	5	Add
+5	I	1	5	4	Subtract
+4	C	100	1	104	Add
+3	X	10	100	94	Subtract
+2	M	1000	10	1094	Add
+1	C	100	1000	994	Subtract
+0	M	1000	100	1994	Add
+✅ Final Result: 1994
+
+⏱️ Time Complexity:
+Loop Traversal: O(n) where n is the length of the string.
+
+Switch Case Operation: O(1) per character. ✅ Final Time Complexity:
+O(n)
