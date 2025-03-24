@@ -19,6 +19,16 @@ class Solution {
     }
 }
 
+ Why You Get an Error When Using " " Instead of ' ' in Java
+⚡️ Reason:
+In Java:
+
+✅ ' ' → Single quotes (' ') represent a character literal (char).
+
+❌ " " → Double quotes (" ") represent a string literal (String), not a character.
+
+
+
 Explaination: 
 ✅ Step-by-Step Algorithm:
 Step 1: Initialization
