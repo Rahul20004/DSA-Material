@@ -1,0 +1,80 @@
+class Solution {
+    public int countHomogenous(String s) {
+        long count = 0;   // Track t
+        long sum = 0;   // store the total number of homogenos  substring
+        char cur = ' ';  // store the current character
+        
+        for(char c : s.toCharArray()){
+            if(c != cur){
+                cur = c;      // update cur to the new characetr
+                count = 1;    // Reset count to 1 for the new character
+                sum++;
+            }else{
+                count++;
+                sum = sum + count;
+            }
+        }
+
+        return (int)((sum) % (Math.pow(10, 9) + 7));  // tp prevent overflow
+    }
+}
+
+Explaination: 
+✅ Step-by-Step Algorithm:
+Step 1: Initialization
+Variables:
+
+count = 0 → Keeps track of the length of the current homogenous substring.
+
+sum = 0 → Stores the total number of homogenous substrings.
+
+cur = ' ' → Initially set to an empty character to track changes.
+
+Step 2: Loop Through the String
+Use a for-each loop to iterate over each character c in the string s:
+
+
+for (char c : s.toCharArray())
+Step 3: Check for New or Same Character
+Condition:
+
+
+if (c != cur)
+✅ New Character Encountered:
+
+Update cur to the new character (cur = c).
+
+Set count = 1 → Start counting a new substring.
+
+Add 1 to sum (single character forms a valid substring).
+
+❗️ Same Character Encountered:
+
+Increment count → Increase length of the current homogenous substring.
+
+Add count to sum → Add all valid substrings formed so far.
+
+Step 4: Update Sum with Count
+Add count to sum each time the same character is encountered:
+sum = sum + count;
+This dynamically accumulates the total number of valid substrings.
+
+Step 5: Return Result with Modulo
+To prevent integer overflow, take the result modulo 
+10
+9
++
+7
+10 
+9
+ +7:
+
+
+return (int) ((sum) % (Math.pow(10, 9) + 7));
+
+
+
+
+
+
+
