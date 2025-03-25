@@ -1,0 +1,75 @@
+class MyQueue {
+ 
+    int front, rear;             // Front and rear Pointers 
+	int arr[] = new int[100005]; // Array to store queue elemnts
+	
+// Constructor to initialize the queue
+    MyQueue()
+	{
+		front=0;
+		rear=0;
+	}
+	
+	//Function to push an element x into the  queue.
+	void push(int x){
+	    if(rear == arr.length){
+	        System.out.println("Queue Overflow'"); // Queue is full
+	        return;
+	    }
+	    arr[rear] = x;  // Insert element at rear
+	    rear++;        // Increment rear
+	    
+	} 
+
+    //Function to pop an element from queue and return that element.
+	int pop(){
+	    if(front == rear){
+	        return -1;  // Queue is empty
+	    }
+		int poppedElement = arr[front];  // Get the front element
+		front++;  // Increment front to point to next element
+		return poppedElement;
+	} 
+}
+
+
+
+Algorithm:
+🚀 Algorithm to Implement Queue Using Array
+📝 Step 1: Initialize Queue
+Create a class MyQueue.
+
+Define:
+
+arr[100005] → Array to store queue elements.
+
+front = 0 → Index pointing to the front element.
+
+rear = 0 → Index where the next element will be inserted.
+
+📝 Step 2: push(int x)
+Insert element x at position arr[rear].
+
+Increment rear by 1.
+
+📝 Step 3: pop()
+Check if the queue is empty:
+
+If front == rear, return -1 (queue is empty).
+
+Otherwise:
+
+Get the element at arr[front].
+
+Increment front by 1.
+
+Return the popped element.
+
+📝 Step 4: Process Queries
+Read input queries.
+
+For each query:
+
+If query is of type 1 x → Call push(x).
+
+If query is of type 2 → Call pop() and print the result.
