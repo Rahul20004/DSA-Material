@@ -1,0 +1,71 @@
+class MyStack {
+    private int[] arr;   // Array to store stack elements
+    private int top;     // Top pointer to track the top element 
+    
+// Construct to initialize stack
+    public MyStack() {
+        arr = new int[1000];   // Array of size 1000
+        top = -1;              // Stack is empty initially 
+    }
+// Push operation
+    public void push(int x) {
+        if(top == arr.length - 1){  // Stack Overflow Condition
+            System.out.println("Stack Overflow");
+            return;
+            
+        }
+        arr[++top] = x; // Increment top and insert element 
+    }
+    
+    // Pop operation
+
+    public int pop() {
+        if(top == -1){
+            // Stack is Empty , return -1
+            return -1;
+            
+        }
+        return arr[top --]; // Return top element and decrement top
+    }
+}
+
+
+Explaination:
+ Algorithm to Implement Stack using Array
+📝 Step 1: Initialize Stack
+Create a class MyStack.
+
+Define:
+
+arr[1000] → Array to store stack elements.
+
+top = -1 → Initial position indicating the stack is empty.
+
+📝 Step 2: push(int x)
+Check if the stack is full:
+
+If top == arr.length - 1, return (stack overflow).
+
+Otherwise:
+
+Increment top by 1.
+
+Assign x to arr[top].
+
+📝 Step 3: pop()
+Check if the stack is empty:
+
+If top == -1, return -1.
+
+Otherwise:
+
+Return arr[top] and decrement top by 1.
+
+📝 Step 4: Process Queries
+Read input queries.
+
+For each query:
+
+If query is of type 1 x → Call push(x).
+
+If query is of type 2 → Call pop() and print the result.
