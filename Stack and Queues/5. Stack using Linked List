@@ -1,0 +1,111 @@
+class MyStack {
+    class StackNode {
+        int data;
+        StackNode next;
+        StackNode(int a) {
+            data = a;
+            next = null;
+        }
+    }
+    StackNode top;     // Pointer to the top of the stack
+
+    // Function to push an integer into the stack.
+    void push(int a) {
+        // Create a new node with value 'a'
+        StackNode newNode = new StackNode(a);
+        
+        // Update top to point to new node
+        newNode.next = top;
+        top = newNode;
+    }
+
+    // Function to remove an item from top of the stack.
+    int pop() {
+        // Check if the stack is empty
+        if(top == null){
+            return -1;     // Return -1 if Stack is empty
+        }
+        
+        int poppedElement = top.data;
+        top = top.next;
+        
+        return poppedElement;
+    }
+}
+
+Explaination:
+ Step 1: push(90)
+Code:
+java
+Copy
+Edit
+StackNode newNode = new StackNode(90);
+newNode.next = top;  // newNode.next = null (since top is null)
+top = newNode;       // top now points to newNode (90)
+State:
+yaml
+Copy
+Edit
+Stack: [90] -> null
+top → 90
+🔥 Step 2: push(28)
+Code:
+java
+Copy
+Edit
+StackNode newNode = new StackNode(28);
+newNode.next = top;  // newNode.next = 90
+top = newNode;       // top now points to newNode (28)
+State:
+rust
+Copy
+Edit
+Stack: [28] -> [90] -> null
+top → 28
+🔥 Step 3: pop()
+Code:
+java
+Copy
+Edit
+int poppedElement = top.data;  // poppedElement = 28
+top = top.next;                // Move top to next node (90)
+return poppedElement;          // Return 28
+State:
+yaml
+Copy
+Edit
+Stack: [90] -> null
+top → 90
+✅ Output: 28
+
+🔥 Step 4: pop()
+Code:
+java
+Copy
+Edit
+int poppedElement = top.data;  // poppedElement = 90
+top = top.next;                // Move top to null (stack is empty)
+return poppedElement;          // Return 90
+State:
+php
+Copy
+Edit
+Stack: empty
+top → null
+✅ Output: 90
+
+🔥 Step 5: pop() (if called again)
+Code:
+java
+Copy
+Edit
+if (top == null) {
+    return -1;  // Stack is empty
+}
+✅ Output: -1 (stack is empty)
+
+📊 Final Output:
+Copy
+Edit
+28
+90
