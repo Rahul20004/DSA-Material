@@ -1,0 +1,185 @@
+class MyQueue {
+    Stack<Integer> stack1;   // main Stack to push element
+    Stack<Integer> stack2;   // Temporary stack to reverse order
+// Construct to initalize the Queue
+    public MyQueue() {
+        stack1 = new Stack<>();
+        stack2 = new Stack<>();
+    }
+    // Push element to the back of the queue
+    
+    public void push(int x) {
+        stack1.push(x);  // Add element to stack 1
+        
+    }   
+    // Remove and return the Front element
+    
+    public int pop() {
+        // If stack2 is empty, transfer elements from stack1
+        if(stack2.isEmpty()){
+            while(!stack1.isEmpty()){
+                stack2.push(stack1.pop()); // Reverse order in stack2 
+            }
+        }
+        // Pop from stack2 if not empty , otherwise return -1
+        if(!stack2.isEmpty()){
+            return stack2.pop();
+        }
+        return -1;   // Queue is empty
+        
+    }
+    // Get the front element without removing 
+    
+    public int peek() {
+        // if stack2 is empty, transfer elements from stack 1
+        if(stack2.isEmpty()){
+            while(!stack1.isEmpty()){
+                stack2.push(stack1.pop());
+            }
+        }
+        if(!stack2.isEmpty()){
+            return stack2.peek();
+        }
+        return -1;  // Queue is empty
+        
+        
+    }
+    // Check if the queue is empty
+    
+    public boolean empty() {
+        return stack1.isEmpty() && stack2.isEmpty();
+        
+    }
+}
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */
+
+
+
+
+
+
+
+ Explaination:
+ 📚 Example 1 Explanation:
+📥 Input:
+text
+Copy
+Edit
+["MyQueue", "push", "push", "peek", "pop", "empty"]
+[[], [1], [2], [], [], []]
+📝 Step-by-Step Execution:
+1️⃣ Initialize MyQueue
+java
+Copy
+Edit
+MyQueue myQueue = new MyQueue();
+A new queue is created.
+
+stack1 and stack2 are both empty at this point.
+
+Queue State: []
+
+✅ Output: null
+(Constructors don’t return a value, hence null)
+
+2️⃣ Push 1 into the Queue
+java
+Copy
+Edit
+myQueue.push(1); 
+1 is pushed to stack1.
+
+stack1: [1]
+
+stack2: []
+
+✅ Queue State: [1]
+✅ Output: null
+(push() returns nothing, so output is null)
+
+3️⃣ Push 2 into the Queue
+java
+Copy
+Edit
+myQueue.push(2); 
+2 is pushed to stack1.
+
+stack1: [1, 2]
+
+stack2: []
+
+✅ Queue State: [1, 2]
+✅ Output: null
+
+4️⃣ Peek: Get Front Element Without Removing
+java
+Copy
+Edit
+myQueue.peek();
+Since stack2 is empty, transfer elements from stack1 to stack2:
+
+stack2.push(stack1.pop());
+
+2 goes to stack2.
+
+1 goes to stack2.
+
+Now:
+
+stack1: []
+
+stack2: [2, 1]
+
+stack2.peek() returns 1 (front of the queue).
+
+✅ Output: 1
+
+5️⃣ Pop: Remove and Return Front Element
+java
+Copy
+Edit
+myQueue.pop(); 
+stack2 is not empty, so stack2.pop() removes 1:
+
+stack2: [2]
+
+✅ Queue State: [2]
+✅ Output: 1
+
+6️⃣ Check if Queue is Empty
+java
+Copy
+Edit
+myQueue.empty();
+Check if both stack1 and stack2 are empty.
+
+stack1: []
+
+stack2: [2]
+
+Since stack2 is not empty, return false.
+
+✅ Output: false
+
+📤 Final Output:
+text
+Copy
+Edit
+[null, null, null, 1, 1, false]
+🔎 Visual Representation:
+Operation	stack1	stack2	Queue (Visual)	Output
+MyQueue	[]	[]	[]	null
+push(1)	[1]	[]	[1]	null
+push(2)	[1, 2]	[]	[1, 2]	null
+peek()	[]	[2, 1]	[1, 2]	1
+pop()	[]	[2]	[2]	1
+empty()	[]	[2]	[2]	false
+✅ The output matches exactly what is expected! 
