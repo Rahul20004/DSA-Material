@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Solution {
+    // Function to convert prefix to infix
+    static String preToInfix(String pre_exp) {
+        Stack<String> stack = new Stack<>();
+        
+        // Traverse prefix expression from right to left
+        for (int i = pre_exp.length() - 1; i >= 0; i--) {
+            char temp = pre_exp.charAt(i);
+            
+            // Case 1: If character is an operand, push to stack
+            if (Character.isLetterOrDigit(temp)) {
+                stack.push(temp + "");
+            } 
+            // Case 2: If character is an operator
+            else {
+                // Pop two operands from stack
+                String operand1 = stack.pop();
+                String operand2 = stack.pop();
+                
+                // Combine them in infix format
+                String expression = "(" + operand1 + temp + operand2 + ")";
+                
+                // Push the resulting expression back to stack
+                stack.push(expression);
+            }
+        }
+        
+        // Final element in stack is the required infix expression
+        return stack.peek();
+    }
+
+    // Driver code to test the function
+    public static void main(String[] args) {
+        String pre_exp1 = "*-A/BC-/AKL";
+        String pre_exp2 = "+A*BC";
+        String pre_exp3 = "-+A*BC/DE";
+        
+        System.out.println(preToInfix(pre_exp1)); // ((A-(B/C))*((A/K)-L))
+        System.out.println(preToInfix(pre_exp2)); // (A+(B*C))
+        System.out.println(preToInfix(pre_exp3)); // ((A+(B*C))-(D/E))
+    }
+}
