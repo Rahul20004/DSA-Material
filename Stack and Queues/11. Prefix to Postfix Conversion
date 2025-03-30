@@ -1,0 +1,293 @@
+import java.util.*;
+
+class Solution {
+    // Function to convert prefix to postfix
+    static String preToPost(String pre_exp) {
+        Stack<String> stack = new Stack<>();
+        
+        // Traverse prefix expression from right to left
+        for (int i = pre_exp.length() - 1; i >= 0; i--) {
+            char temp = pre_exp.charAt(i);
+            
+            // If character is an operand, push to stack
+            if (Character.isLetterOrDigit(temp)) {
+                stack.push(temp + "");
+            } 
+            // If character is an operator
+            else {
+                // Pop two operands from stack
+                String operand1 = stack.pop();
+                String operand2 = stack.pop();
+                
+                // Combine them in postfix format
+                String expression = operand1 + operand2 + temp;
+                
+                // Push the resulting expression back to stack
+                stack.push(expression);
+            }
+        }
+        
+        // Final element in stack is the required postfix expression
+        return stack.peek();
+    }
+
+    // Driver code to test the function
+    public static void main(String[] args) {
+        String pre_exp1 = "*-A/BC-/AKL";
+        String pre_exp2 = "+A*BC";
+        String pre_exp3 = "-+A*BC/DE";
+        
+        System.out.println(preToPost(pre_exp1)); // ABC/-AK/L-*
+        System.out.println(preToPost(pre_exp2)); // ABC*+
+        System.out.println(preToPost(pre_exp3)); // ABC*+DE/-
+    }
+}
+
+
+
+Explination:
+
+📚 Explanation of Each Section
+📦 1. Import Required Packages
+java
+Copy
+Edit
+import java.util.*;
+import java.util.* → Imports the Java Utility Library which includes:
+
+Stack class to store intermediate results during conversion.
+
+📚 2. Class Declaration
+java
+Copy
+Edit
+class Solution {
+Declares a class named Solution.
+
+This class contains the preToPost() method and a main() method to test the function.
+
+📚 3. preToPost Method Definition
+java
+Copy
+Edit
+static String preToPost(String pre_exp) {
+static → Allows the method to be called without creating an object.
+
+String preToPost(String pre_exp) → This method takes a prefix expression (pre_exp) as input and returns a postfix expression.
+
+📚 4. Stack Initialization
+java
+Copy
+Edit
+Stack<String> stack = new Stack<>();
+Creates an empty stack to hold intermediate results.
+
+stack.push() → Adds elements to the top of the stack.
+
+stack.pop() → Removes and returns the element at the top of the stack.
+
+📚 5. Traverse Prefix Expression from Right to Left
+java
+Copy
+Edit
+for (int i = pre_exp.length() - 1; i >= 0; i--) {
+pre_exp.length() - 1 → Starts the loop from the last character of the prefix expression.
+
+i-- → Moves left after processing each character.
+
+📚 6. Get the Current Character
+java
+Copy
+Edit
+char temp = pre_exp.charAt(i);
+pre_exp.charAt(i) → Retrieves the character at index i of the prefix expression.
+
+temp stores the current character.
+
+📚 7. Check if the Character is an Operand
+java
+Copy
+Edit
+if (Character.isLetterOrDigit(temp)) {
+    stack.push(temp + "");
+}
+Character.isLetterOrDigit(temp) → Checks if the character is:
+
+A letter (A-Z or a-z).
+
+A digit (0-9).
+
+stack.push(temp + "") → Converts temp to a String using temp + "" and pushes it onto the stack.
+
+📚 8. Character is an Operator
+java
+Copy
+Edit
+else {
+If the character is not an operand, it is assumed to be an operator (+, -, *, /, %, ^).
+
+📚 9. Pop Two Operands from the Stack
+java
+Copy
+Edit
+String operand1 = stack.pop();
+String operand2 = stack.pop();
+stack.pop() → Removes and returns the topmost element of the stack.
+
+Since prefix expressions have operands after operators, the order is:
+
+operand1 → First popped element.
+
+operand2 → Second popped element.
+
+📚 10. Form the Postfix Expression
+java
+Copy
+Edit
+String expression = operand1 + operand2 + temp;
+In postfix format, the operator comes after the operands.
+
+expression forms the postfix by combining:
+
+operand1
+
+operand2
+
+temp (operator)
+
+📚 11. Push Resulting Expression to Stack
+java
+Copy
+Edit
+stack.push(expression);
+Pushes the newly formed postfix expression back to the stack.
+
+📚 12. End of Loop
+java
+Copy
+Edit
+}
+Continue iterating through the remaining characters of the prefix expression.
+
+📚 13. Final Postfix Expression
+java
+Copy
+Edit
+return stack.peek();
+stack.peek() → Retrieves the top element from the stack without removing it.
+
+Since only one valid postfix expression remains in the stack, it is returned as the result.
+
+🎯 Main Method (Driver Code)
+📚 14. Main Method Definition
+java
+Copy
+Edit
+public static void main(String[] args) {
+main(String[] args) → Standard entry point for Java programs.
+
+📚 15. Test Cases
+java
+Copy
+Edit
+String pre_exp1 = "*-A/BC-/AKL";
+String pre_exp2 = "+A*BC";
+String pre_exp3 = "-+A*BC/DE";
+Defines three test cases:
+
+pre_exp1 → *-A/BC-/AKL
+
+pre_exp2 → +A*BC
+
+pre_exp3 → -+A*BC/DE
+
+📚 16. Call preToPost() and Print Results
+java
+Copy
+Edit
+System.out.println(preToPost(pre_exp1)); // ABC/-AK/L-*
+System.out.println(preToPost(pre_exp2)); // ABC*+
+System.out.println(preToPost(pre_exp3)); // ABC*+DE/-
+Calls preToPost() with each prefix expression.
+
+Prints the resulting postfix expressions.
+
+📊 Dry Run of Code
+🎯 Input:
+ini
+Copy
+Edit
+pre_exp1 = "*-A/BC-/AKL"
+Character	Stack (Top to Bottom)	Action
+L	L	Push operand
+K	K, L	Push operand
+A	A, K, L	Push operand
+/	AK/, L	Pop A, K → AK/
+-	AK/L-	Pop AK/, L → AK/L-
+C	C, AK/L-	Push operand
+B	B, C, AK/L-	Push operand
+/	BC/, AK/L-	Pop B, C → BC/
+A	A, BC/, AK/L-	Push operand
+-	ABC/-, AK/L-	Pop A, BC/ → ABC/-
+*	ABC/-AK/L-*	Pop ABC/-, AK/L- → Final
+✅ Output:
+
+bash
+Copy
+Edit
+ABC/-AK/L-*
+📊 Time and Space Complexity Analysis
+⏱️ Time Complexity:
+Traversing the expression:
+
+We traverse the entire string once → O(n).
+
+Push and pop operations on the stack:
+
+Each operation is O(1).
+
+Overall:
+
+css
+Copy
+Edit
+Time Complexity: O(n)
+💾 Space Complexity:
+Stack to store intermediate expressions:
+
+In the worst case, all operands are pushed onto the stack → O(n).
+
+Space for storing the resulting postfix expression:
+
+Space required to form postfix → O(n).
+
+Overall:
+
+mathematica
+Copy
+Edit
+Space Complexity: O(n)
+🎯 Test Cases
+Input	Output
+*-A/BC-/AKL	ABC/-AK/L-*
++A*BC	ABC*+
+-+A*BC/DE	ABC*+DE/-
+*AB	AB*
++AB	AB+
+-A/BC	ABC/-
+🎉 Summary:
+✅ Code explained line-by-line.
+✅ Dry run included.
+✅ Time and space complexity analyzed.
+✅ Test cases covered.
+
+Happy Coding! 🎯🚀
+
+
+
+
+
+
+
+
+
