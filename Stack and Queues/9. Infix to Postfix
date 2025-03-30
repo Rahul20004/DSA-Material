@@ -1,0 +1,74 @@
+import java.util.*;
+
+class Solution {
+    // Function to convert an infix expression to a postfix expression.
+    public static String infixToPostfix(String s) {
+        // Result to store postfix expression
+        StringBuilder result = new StringBuilder();
+        
+        // Stack to store operators
+        Stack<Character> stack = new Stack<>();
+
+        // Traversing the infix expression
+        for (int i = 0; i < s.length(); i++) {
+            char temp = s.charAt(i);
+
+            // Case 1: Operand -> Add to result
+            if (Character.isLetterOrDigit(temp)) {
+                result.append(temp);
+            }
+            
+            // Case 2: Left Parenthesis -> Push to stack
+            else if (temp == '(') {
+                stack.push(temp);
+            }
+            
+            // Case 3: Right Parenthesis -> Pop till '(' is encountered
+            else if (temp == ')') {
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    result.append(stack.pop());
+                }
+                stack.pop(); // Discard '('
+            }
+            
+            // Case 4: Operator -> Process operators based on precedence
+            else {
+                while (!stack.isEmpty() && precedence(temp) <= precedence(stack.peek())) {
+                    result.append(stack.pop());
+                }
+                stack.push(temp);
+            }
+        }
+
+        // Pop all remaining operators
+        while (!stack.isEmpty()) {
+            result.append(stack.pop());
+        }
+
+        // Return the final postfix expression
+        return result.toString();
+    }
+
+    // Function to define precedence of operators
+    private static int precedence(char ch) {
+        switch (ch) {
+            case '^': return 3;
+            case '*':
+            case '/': return 2;
+            case '+':
+            case '-': return 1;
+        }
+        return -1;
+    }
+
+    // Driver code to test the function
+    public static void main(String[] args) {
+        String s1 = "a+b*(c^d-e)^(f+g*h)-i";
+        String s2 = "A*(B+C)/D";
+        String s3 = "(a+b)*(c+d)";
+
+        System.out.println("Postfix: " + infixToPostfix(s1)); // abcd^e-fgh*+^*+i-
+        System.out.println("Postfix: " + infixToPostfix(s2)); // ABC+*D/
+        System.out.println("Postfix: " + infixToPostfix(s3)); // ab+cd+*
+    }
+}
