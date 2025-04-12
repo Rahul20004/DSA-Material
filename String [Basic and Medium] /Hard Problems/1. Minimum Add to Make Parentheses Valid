@@ -1,0 +1,41 @@
+class Solution {
+    public int minAddToMakeValid(String s) {
+        int open = 0;
+        int insertions = 0;
+        for(char ch : s.toCharArray()){
+            if(ch == '('){
+                open ++;
+            } else if(ch ==')'){
+                if(open > 0){
+                    open --;
+                } else{
+                    insertions ++;
+                }
+            }
+        }
+        // Total insertions needed = unmatched ')' unmatched '('
+        return insertions + open; 
+        
+    }
+}
+
+Explaination:
+✅ Dry Run Example: "()))(("
+Initial:
+open = 0, insertions = 0
+
+Step-by-step:
+Char	Action	open	insertions
+(	एक '(' मिला → open++	1	0
+)	match मिला → open--	0	0
+)	unmatched ')' → insert++	0	1
+)	फिर unmatched ')' → insert++	0	2
+(	एक '(' मिला → open++	1	2
+(	एक '(' मिला → open++	2	2
+🔚 Final:
+open = 2 (मतलब 2 '(' बचे हैं जिनके पास कोई ')' नहीं)
+
+insertions = 2 (मतलब 2 ')' unmatched थे, जिन्हें match करने के लिए '(' insert करना पड़ा)
+
+🔢 Total Insertions = open + insertions = 2 + 2 = 4
+✅ Output: 4
