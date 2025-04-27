@@ -1,0 +1,32 @@
+Problem Statement:
+
+You are given an integer array nums which is sorted in non-decreasing order (smallest to largest, duplicates allowed).
+
+Task:
+➔ Remove the duplicates directly inside the same array (in-place).
+➔ Keep only one occurrence of each element.
+➔ Return the number of unique elements.
+
+Important conditions:
+
+Do not use extra space like another array.
+
+Order must be preserved (don't shuffle elements).
+
+After k elements, whatever remains in the array doesn't matter.
+
+Code:
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums.length == 0) return 0;
+        int i = 0;
+        for(int j= 1; j< nums.length;j++){
+            if(nums[j] != nums[i]){
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i+1; // Total Unique elements count
+        
+    }
+}
