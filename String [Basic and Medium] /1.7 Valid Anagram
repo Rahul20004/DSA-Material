@@ -1,0 +1,117 @@
+Code:
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        // अगर दोनों की length अलग है तो anagram नहीं हो सकते
+        if (s.length() != t.length()) return false;
+
+        // 26 characters के लिए frequency array
+        int[] freq = new int[26];    // for 'a' to 'z'
+
+        // दोनों strings की frequency count करना
+        for (int i = 0; i < s.length(); i++) {   
+            freq[s.charAt(i) - 'a']++;  // s के लिए increase
+            freq[t.charAt(i) - 'a']--;  // t के लिए decrease
+        }
+
+        // Check if all frequencies are zero
+        for (int count : freq) {
+            if (count != 0) {
+                return false; // Anagram नहीं है
+            }
+        }
+
+        return true; // Anagram है
+    
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+s = "anagram"
+t = "nagaram"
+🧠 Step-by-Step Dry Run with Table:
+Step	i	s.charAt(i)	t.charAt(i)	freq change	freq (snapshot)
+1	0	'a'	'n'	freq[0]++ (a), freq[13]-- (n)	[1,0,0,...,-1,...]
+2	1	'n'	'a'	freq[13]++ (n), freq[0]-- (a)	[0,0,0,...,0,...]
+3	2	'a'	'g'	freq[0]++ (a), freq[6]-- (g)	[1,0,0,0,0,0,-1,...]
+4	3	'g'	'a'	freq[6]++ (g), freq[0]-- (a)	[0,0,0,0,0,0,0,...]
+5	4	'r'	'r'	freq[17]++ & freq[17]-- cancel out	no change
+6	5	'a'	'a'	freq[0]++ & freq[0]-- cancel out	no change
+7	6	'm'	'm'	freq[12]++ & freq[12]-- cancel out	no change
+
+🔍 Final freq[] Array:
+सभी values 0 हैं → दोनों strings में letters और उनकी frequency समान हैं।
+
+✅ Output:
+java
+Copy
+Edit
+return true; // यह दोनों strings anagram हैं
+🧠 याद रखने वाला वाक्य:
+"एक बढ़ाओ, एक घटाओ — अगर सब शून्य हो जाएं, तो अनाग्राम सच्चा!"
+
+अगर तुम्हें चाहो तो मैं इसका Hindi mnemonic या diagram भी बना सकता हूँ — बताओ?
+
+
+
+
+
+
+
+You said:
+why -'a' ?
+
+
+ChatGPT said:
+Great question!
+
+In expressions like this:
+
+java
+Copy
+Edit
+freq[s.charAt(i) - 'a']
+🤔 Why - 'a'?
+Because you're converting a character like 'a', 'b', 'c', ... 'z' into a 0-based index (i.e., index from 0 to 25) to use in an array.
+
+🔤 Example:
+Character	ASCII Value	'ch' - 'a'	Index in freq[]
+'a'	97	97 - 97 = 0	0
+'b'	98	98 - 97 = 1	1
+'z'	122	122 - 97 = 25	25
+
+So, s.charAt(i) - 'a' gives the correct index for any lowercase letter.
+
+📦 Why is this useful?
+You're using an array of size 26:
+
+java
+Copy
+Edit
+int[] freq = new int[26]; // index 0 -> 'a', index 1 -> 'b', ..., index 25 -> 'z'
+So the - 'a' maps each lowercase letter to the correct index in this array.
+
+🧠 Mnemonic:
+"ASCII trick: 'a' to zero, 'z' to twenty-five!"
+
+Let me know if you want the same explanation in Hindi or with a diagram!
